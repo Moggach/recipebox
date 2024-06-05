@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { RecipeItem } from './components/RecipeItem'
+import { Recipe } from './components/RecipeItem'
 
 const App: React.FC = () => {
-
-  const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [bookmarkedRecipes, setBookmarkedRecipes] = useState<number[]>([]);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -27,20 +30,52 @@ const App: React.FC = () => {
     fetchRecipes();
   }, []);
 
+  const toggleBookmark = (id: number) => {
+    setBookmarkedRecipes(prevState =>
+      prevState.includes(id) ? prevState.filter(recipeId => recipeId !== id) : [...prevState, id]
+    );
+  };
+
+  const togglePopup = () => {
+    setIsPopupVisible(!isPopupVisible);
+  };
+
+  const isBookmarked = (id: number): boolean => bookmarkedRecipes.includes(id);
+
   return (
     <>
       <h1>Recipebox</h1>
       <ul>
-        {recipes.map((recipe: any) => (
-          <li key={recipe.id}>
-            <h3>{recipe.title}</h3>
-            <p>{recipe.description}</p>
-            {recipe.image && recipe.image.length > 0 && (
-              <img src={recipe.image[0].url} alt={recipe.image[0].title} />
-            )}
-          </li>
+        {recipes.map((recipe: Recipe) => (
+          <RecipeItem
+            key={recipe.id}
+            recipe={recipe}
+            onToggleBookmark={toggleBookmark}
+            isBookmarked={isBookmarked(recipe.id)}
+          />
         ))}
       </ul>
+      <button onClick={togglePopup}>
+        {isPopupVisible ? 'Hide Bookmarked Recipes' : 'Show Bookmarked Recipes'}
+      </button>
+      {isPopupVisible && (
+        <div>
+          <button onClick={togglePopup}>Close</button>
+          <h2>Bookmarked Recipes</h2>
+          <ul>
+            {recipes
+              .filter((recipe: any) => bookmarkedRecipes.includes(recipe.id))
+              .map((recipe: any) => (
+                <RecipeItem
+                  key={recipe.id}
+                  recipe={recipe}
+                  onToggleBookmark={toggleBookmark}
+                  isBookmarked={isBookmarked(recipe.id)}
+                />
+              ))}
+          </ul>
+        </div>
+      )}
     </>
   );
 };
