@@ -56,7 +56,7 @@ const App: React.FC = () => {
 
   return (
     <main className="bg-backgroundWhite font-inter relative">
-      <div className='w-[352px] mx-auto flex items-baseline justify-between'>
+      <div className='w-[352px] md:w-[80%] mx-auto flex items-baseline justify-between'>
         <h1 className="px-md uppercase text-lg tracking-[0.4375em] font-semibold text-textHeading leading-header pt-xl pb-lg flex-1 flex justify-center">Recipebox</h1>
         <button className="ml-auto relative" onClick={togglePopup}>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18" fill="none">
@@ -72,7 +72,7 @@ const App: React.FC = () => {
       {isLoading && <p>Loading...</p>}
       {hasError && <p>Oops! Error occurred while fetching recipes. Report this as a bug 🤖</p>}
 
-      <ul className="flex flex-wrap justify-center gap-md w-[352px] mx-auto">
+      <ul className="flex flex-wrap justify-center gap-md w-[352px] md:w-[80%] mx-auto">
         {recipes.map((recipe: Recipe) => (
           <RecipeItem
             key={recipe.id}
