@@ -16,7 +16,7 @@ export interface Recipe {
 
 const RecipeItem: React.FC<RecipeItemProps> = ({ recipe, onToggleBookmark, isBookmarked, variant = 'main' }) => {
   const containerClass = variant === 'main' ? 'w-[166px]' : 'w-[352px] flex items-center justify-between mx-auto';
-  const titleClass = variant === 'main' ? 'font-inter text-md font-medium text-textBlack' : 'font-inter text-md font-medium text-textWhite';
+  const titleClass = variant === 'main' ? 'text-md font-medium text-textBlack' : 'text-md font-medium text-textWhite';
   const imageWrapper = variant === 'main' ? '' : 'flex items-center gap-md';
   const imageClass = variant === 'main' ? 'rounded-xl mb-xs max-h-[166px] object-cover' : 'rounded-xl max-w-[54px] max-h-[54px] object-cover';
 
