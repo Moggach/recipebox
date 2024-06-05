@@ -57,7 +57,7 @@ const App: React.FC = () => {
   return (
     <main className="bg-backgroundWhite font-inter relative">
       <div className='w-[352px] mx-auto flex items-baseline justify-between'>
-        <h1 className="px-md font-inter uppercase text-lg tracking-[0.4375em] font-semibold text-textHeading leading-header pt-xl pb-lg flex-1 flex justify-center">Recipebox</h1>
+        <h1 className="px-md uppercase text-lg tracking-[0.4375em] font-semibold text-textHeading leading-header pt-xl pb-lg flex-1 flex justify-center">Recipebox</h1>
         <button className="ml-auto relative" onClick={togglePopup}>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18" fill="none">
             <path d="M11.8519 1.41466C12.7927 1.53021 13.4829 2.38694 13.4829 3.3872V17.3738L7.06846 13.9884L0.654053 17.3738V3.3872C0.654053 2.38694 1.34339 1.53021 2.28502 1.41466C5.46331 1.02523 8.67361 1.02523 11.8519 1.41466Z" fill="#404040" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" />
