@@ -55,7 +55,7 @@ const App: React.FC = () => {
   const isBookmarked = (id: number): boolean => bookmarkedRecipes.includes(id);
 
   return (
-    <main className="bg-backgroundWhite font-inter ">
+    <main className="bg-backgroundWhite font-inter relative">
       <div className='w-[352px] mx-auto flex items-baseline justify-between'>
         <h1 className="px-md font-inter uppercase text-lg tracking-[0.4375em] font-semibold text-textHeading leading-header pt-xl pb-lg flex-1 flex justify-center">Recipebox</h1>
         <button className="ml-auto relative" onClick={togglePopup}>
@@ -84,22 +84,31 @@ const App: React.FC = () => {
       </ul>
 
       {isPopupVisible && (
-        <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 p-4">
-          <button onClick={togglePopup} className="mb-4">Close</button>
-          <h2 className="text-lg font-bold mb-2">Bookmarked Recipes</h2>
-          <ul className="max-h-64 overflow-y-auto">
-            {recipes
-              .filter((recipe: any) => bookmarkedRecipes.includes(recipe.id))
-              .map((recipe: any) => (
-                <RecipeItem
-                  key={recipe.id}
-                  recipe={recipe}
-                  onToggleBookmark={toggleBookmark}
-                  isBookmarked={isBookmarked(recipe.id)}
-                />
-              ))}
-          </ul>
-        </div>
+        <>
+          <div className="fixed inset-0 bg-backgroundGray pointer-events-none z-40"></div>
+          <div className="fixed bottom-0 left-0 w-full bg-backgroundBlack pb-lg rounded-t-3xl z-50">
+            <div className="relative pt-xl">
+              <button onClick={togglePopup} className="absolute top-4 right-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                  <path d="M1.5 13L13.5 1M1.5 1L13.5 13" stroke="#FAFAFA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <ul className="flex flex-col gap-md">
+              {recipes
+                .filter((recipe: any) => bookmarkedRecipes.includes(recipe.id))
+                .map((recipe: any) => (
+                  <RecipeItem
+                    key={recipe.id}
+                    recipe={recipe}
+                    onToggleBookmark={toggleBookmark}
+                    isBookmarked={isBookmarked(recipe.id)}
+                    variant="popup"
+                  />
+                ))}
+            </ul>
+          </div>
+        </>
       )}
     </main>
   );
