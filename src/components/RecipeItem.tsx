@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface RecipeItemProps {
-  recipe: Recipe; 
+  recipe: Recipe;
   onToggleBookmark: (id: number) => void;
   isBookmarked: boolean;
 }
@@ -15,17 +15,28 @@ export interface Recipe {
 
 const RecipeItem: React.FC<RecipeItemProps> = ({ recipe, onToggleBookmark, isBookmarked }) => {
   return (
-    <li key={recipe.id}>
-      <h3>{recipe.title}</h3>
-      <p>{recipe.description}</p>
+    <li className="w-[166px]" key={recipe.id}>
       {recipe.image && recipe.image.length > 0 && (
-        <img src={recipe.image[0].url} alt={recipe.image[0].title} width="200" />
+        <img className="rounded-xl mb-xs max-h-[166px] object-cover" src={recipe.image[0].url} alt={recipe.image[0].title} width="200" />
       )}
-      <button onClick={() => onToggleBookmark(recipe.id)}>
-        {isBookmarked? 'Unbookmark' : 'Bookmark'}
-      </button>
+      <div className="flex justify-between align-top">
+        <h3 className='font-inter text-md font-medium textBlack'>{recipe.title}</h3>
+        <button onClick={() => onToggleBookmark(recipe.id)}>
+          {isBookmarked ? <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+            <circle cx="12.5" cy="12.5" r="12.5" fill="#404040" />
+            <path d="M15.5517 7.765C16.1519 7.83484 16.5923 8.35264 16.5923 8.95721V17.4107L12.5 15.3646L8.40775 17.4107V8.95721C8.40775 8.35264 8.84753 7.83484 9.44827 7.765C11.476 7.52963 13.5241 7.52963 15.5517 7.765Z" stroke="#FAFAFA" stroke-linecap="round" stroke-linejoin="round" />
+          </svg> :
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+              <circle cx="12.5" cy="12.5" r="12.5" fill="#FFFFFF" stroke="#404040" />
+              <path d="M15.5517 7.765C16.1519 7.83484 16.5923 8.35264 16.5923 8.95721V17.4107L12.5 15.3646L8.40775 17.4107V8.95721C8.40775 8.35264 8.84753 7.83484 9.44827 7.765C11.476 7.52963 13.5241 7.52963 15.5517 7.765Z" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>}
+        </button>
+      </div>
     </li>
   );
 };
 
 export { RecipeItem };
+
+
+
