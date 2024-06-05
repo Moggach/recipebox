@@ -7,9 +7,14 @@ const App: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState<number[]>([]);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [hasError, setHasError] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchRecipes = async () => {
+      setIsLoading(true);
+      setHasError(false);
+
       try {
         const apiUrl = process.env.REACT_APP_API_URL || '';
         const authHeader = 'Basic ' + btoa(process.env.BASIC_AUTH || '');
@@ -20,10 +25,17 @@ const App: React.FC = () => {
           },
         });
 
+        if (!response.ok) {
+          throw new Error(`HTTP error status: ${response.status}`);
+        }
+
         const data = await response.json();
         setRecipes(data.recipes);
       } catch (error) {
         console.error('Error fetching recipes:', error);
+        setHasError(true);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -45,6 +57,9 @@ const App: React.FC = () => {
   return (
     <>
       <h1>Recipebox</h1>
+      {isLoading && <p>Loading...</p>}
+      {hasError && <p>Oops! Error occurred while fetching recipes. Report this as a bug 🤖</p>}
+
       <ul>
         {recipes.map((recipe: Recipe) => (
           <RecipeItem
