@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { RecipeItem } from './components/RecipeItem'
-import { Recipe } from './components/RecipeItem'
+import { RecipeItem } from './components/RecipeItem';
+import { Recipe } from './components/RecipeItem';
 
 const App: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -54,11 +54,9 @@ const App: React.FC = () => {
 
   const isBookmarked = (id: number): boolean => bookmarkedRecipes.includes(id);
 
-
   return (
     <main className="bg-backgroundWhite font-inter ">
-
-      <div className='w-[352px] mx-auto flex items-baseline justify-between"'>
+      <div className='w-[352px] mx-auto flex items-baseline justify-between'>
         <h1 className="px-md font-inter uppercase text-lg tracking-[0.4375em] font-semibold text-textHeading leading-header pt-xl pb-lg flex-1 flex justify-center">Recipebox</h1>
         <button className="ml-auto relative" onClick={togglePopup}>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18" fill="none">
@@ -69,7 +67,8 @@ const App: React.FC = () => {
               {bookmarkedRecipes.length}
             </span>
           )}
-        </button></div>
+        </button>
+      </div>
       {isLoading && <p>Loading...</p>}
       {hasError && <p>Oops! Error occurred while fetching recipes. Report this as a bug 🤖</p>}
 
@@ -85,10 +84,10 @@ const App: React.FC = () => {
       </ul>
 
       {isPopupVisible && (
-        <div>
-          <button onClick={togglePopup}>Close</button>
-          <h2>Bookmarked Recipes</h2>
-          <ul>
+        <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 p-4">
+          <button onClick={togglePopup} className="mb-4">Close</button>
+          <h2 className="text-lg font-bold mb-2">Bookmarked Recipes</h2>
+          <ul className="max-h-64 overflow-y-auto">
             {recipes
               .filter((recipe: any) => bookmarkedRecipes.includes(recipe.id))
               .map((recipe: any) => (
