@@ -4,3 +4,6 @@
 # Parcel
 .parcel-cache
 dist
+
+# env variables
+.env
